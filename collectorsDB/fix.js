@@ -5,12 +5,17 @@ var fs = require('fs'),
 
 var contents = JSON.parse(fs.readFileSync(file));
 
-console.info(contents);
+//console.info(contents);
 
 contents.forEach(function(v,i){
-	var src = {}
-	src.original = v.src;
-	v.src = src
+	v.id = generateUID();
 });
 
+console.info(contents);
+
 fs.writeFileSync(file, JSON.stringify(contents));
+
+
+function generateUID() {
+	return ("0000" + (Math.random()*Math.pow(36,4) << 0).toString(36)).slice(-4);
+}
